@@ -1,32 +1,35 @@
 import React from "react";
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Route,
     Link,
     Routes, useLocation, Navigate
 } from "react-router-dom";
+import './index.scss'
 
 function App() {
     return (
         <Router>
             <div>
-                <ul>
-                    <li>
-                        <Link to="/details">明细</Link>
-                    </li>
-                    <li>
-                        <Link to="/money">记账</Link>
-                    </li>
-                    <li>
-                        <Link to="/statistics">统计</Link>
-                    </li>
-                </ul>
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to="/details">明细</Link>
+                        </li>
+                        <li>
+                            <Link to="/money">记账</Link>
+                        </li>
+                        <li>
+                            <Link to="/statistics">统计</Link>
+                        </li>
+                    </ul>
+                </nav>
 
                 <Routes>
                     <Route path="/details" element={<Details/>}/>
                     <Route path="/money" element={<Money/>}/>
                     <Route path="/statistics" element={<Statistics/>}/>
-                    <Route path="/" element={<Navigate replace to="/money"/> }/>
+                    <Route path="/" element={<Navigate replace to="/money"/>}/>
                     <Route path="*" element={<NoMatch/>}/>
                 </Routes>
             </div>
