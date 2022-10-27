@@ -5,22 +5,7 @@ import {
     Routes, useLocation, Navigate
 } from "react-router-dom";
 import './index.scss'
-import styled from "styled-components";
-import Nav from "./components/Nav";
-
-const Wrapper = styled.div`
-  //border: 2px solid red;
-  text-align: center;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
-  max-width: 700px;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-`
-const Main = styled.div`
-  flex-grow: 1;
-  overflow: auto;
-`
+import Layout from "./components/Layout";
 
 function App() {
     return (
@@ -38,40 +23,30 @@ function App() {
 
 function Details() {
     return (
-        <Wrapper>
-            <Main>
-                <h2>明细页面</h2>
-            </Main>
-            <Nav/>
-        </Wrapper>
+        <Layout>
+            <h2>明细页面</h2>
+        </Layout>
     );
 }
 
 function Money() {
     return (
-        <Wrapper>
-            <Main>
-                <h2>记账页面</h2>
-            </Main>
-            <Nav/>
-        </Wrapper>
+        <Layout>
+            <h2>记账页面</h2>
+        </Layout>
     );
 }
 
 function Statistics() {
     return (
-        <Wrapper>
-            <Main>
-                <h2>统计页面</h2>
-            </Main>
-            <Nav/>
-        </Wrapper>
+        <Layout>
+            <h2>统计页面</h2>
+        </Layout>
     );
 }
 
 function NoMatch() {
     let location = useLocation();
-
     return (
         <div>
             <h3>
