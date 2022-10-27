@@ -6,6 +6,10 @@ import {
 } from "react-router-dom";
 import './index.scss'
 import Layout from "./components/Layout";
+import Details from "./view/Details";
+import Money from "./view/Money";
+import Statistics from "./view/Statistics";
+import NoMatch from "./view/NoMatch";
 
 function App() {
     return (
@@ -18,41 +22,6 @@ function App() {
                 <Route path="*" element={<NoMatch/>}/>
             </Routes>
         </Router>
-    );
-}
-
-function Details() {
-    return (
-        <Layout>
-            <h2>明细页面</h2>
-        </Layout>
-    );
-}
-
-function Money() {
-    return (
-        <Layout>
-            <h2>记账页面</h2>
-        </Layout>
-    );
-}
-
-function Statistics() {
-    return (
-        <Layout>
-            <h2>统计页面</h2>
-        </Layout>
-    );
-}
-
-function NoMatch() {
-    let location = useLocation();
-    return (
-        <div>
-            <h3>
-                No match for <code>{location.pathname}</code>
-            </h3>
-        </div>
     );
 }
 
