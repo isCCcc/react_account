@@ -3,10 +3,10 @@ import React from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  //border: 2px solid red;
   text-align: center;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
-  max-width: 700px;
+  max-width: 520px;
+  margin: 0 auto;
   height: 100vh;
   display: flex;
   flex-direction: column;
