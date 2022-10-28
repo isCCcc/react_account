@@ -56,7 +56,32 @@ const NotesSection = styled.section`
     background: none;
   }
 `
-const CategorySection = styled.section``
+const CategorySection = styled.section`
+    >ol{
+      >li{
+        display: inline-block;
+        width: 50%;
+        font-size: 24px;
+        height: 64px;
+        line-height: 64px;
+        text-align: center;
+        position: relative;
+        &.selected{
+          background: #e7f7f0;
+          color: #2db970;
+          ::after{
+            content: '';
+            display: block;
+            height: 4px;
+            background: #2db970;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+          }
+        }
+      }
+    }
+`
 const NumberPadSection = styled.section``
 
 function Money() {
@@ -71,15 +96,13 @@ function Money() {
                 </ol>
                 <button>新增标签</button>
             </TagsSection>
-
             <NotesSection>
                 <label>备注</label>
                 <input placeholder="请在这里输入备注"/>
             </NotesSection>
-
             <CategorySection>
                 <ol>
-                    <li>支出</li>
+                    <li className="selected">支出</li>
                     <li>收入</li>
                 </ol>
             </CategorySection>
