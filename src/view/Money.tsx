@@ -40,7 +40,22 @@ const TagsSection = styled.section`
     margin-top: 8px;
   }
 `
-const NotesSection = styled.section``
+const NotesSection = styled.section`
+  padding: 0 16px;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  >label{
+    margin-right: 16px;
+    white-space: nowrap;
+  }
+  >input{
+    height: 64px;
+    width: 100%;
+    border: none;
+    background: none;
+  }
+`
 const CategorySection = styled.section``
 const NumberPadSection = styled.section``
 
@@ -61,6 +76,7 @@ function Money() {
                 <label>备注</label>
                 <input placeholder="请在这里输入备注"/>
             </NotesSection>
+
             <CategorySection>
                 <ol>
                     <li>支出</li>
