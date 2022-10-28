@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import React from "react";
-import Icon from "./Icon";
+import Icon from "components/Icon";
 
 const NavWrapper = styled.div`
+  //@import 'helper.scss';
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
   line-height: 24px;
 
@@ -24,6 +25,12 @@ const NavWrapper = styled.div`
           width: 24px;
           height: 24px;
         }
+        &.active{
+          color: #2db970;
+          .icon{
+            fill: #2db970;
+          }
+        }
       }
     }
   }
@@ -33,22 +40,22 @@ const Nav = () => {
         <NavWrapper>
             <ul>
                 <li>
-                    <Link to="/details">
+                    <NavLink to="/details" >
                         <Icon name="detail"/>
                         明细
-                    </Link>
+                    </NavLink>
                 </li>
                 <li>
-                    <Link to="/money">
+                    <NavLink to="/money" >
                         <Icon name="money"/>
                         记账
-                    </Link>
+                    </NavLink>
                 </li>
                 <li>
-                    <Link to="/statistics">
+                    <NavLink to="/statistics" >
                         <Icon name="statistics"/>
                         统计
-                    </Link>
+                    </NavLink>
                 </li>
             </ul>
         </NavWrapper>

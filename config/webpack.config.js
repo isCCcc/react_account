@@ -358,7 +358,16 @@ module.exports = function (webpackEnv) {
                             use: [
                                 {loader: 'svg-sprite-loader', options: {}},
                                 // 'svg-transform-loader',  // 用于配置svg图片
-                                {loader: 'svgo-loader', options: {}},  // svg配置优化
+                                {loader: 'svgo-loader', options: {
+                                        plugins: [
+                                            {
+                                                name: "removeAttrs",
+                                                params: {
+                                                    attrs: "fill"
+                                                }
+                                            }
+                                        ]
+                                    }},  // svg配置优化
                             ]
                         },
                         {
