@@ -9,13 +9,12 @@ const generateOutput = (text: string, output='0') => {
         case '6':
         case '7':
         case '8':
-        // @ts-ignore
         case '9':
             if (output == '0') {
                 return text;
             } else if ('0123456789'.indexOf(text) >= 0) {
                 return output + text;
-            }
+            }else {return}
         case '.':
             if (output.indexOf('.') >= 0) {
                 return output
