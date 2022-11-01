@@ -17,7 +17,7 @@ function Money() {
         tag: '',
         note: '',
         category: '-' as Category,
-        amount: 0
+        amount: '0'
     })
     return (
         <MyLayout>

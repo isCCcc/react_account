@@ -3,28 +3,27 @@ import {Wrapper} from "./NumberPadSection/Wrapper";
 import {generateOutput} from "./NumberPadSection/generateOutput";
 
 type Props = {
-    amount: number,
-    onChange: (value: number) => void
+    amount: string,
+    onChange: (value: string) => void
 }
 const NumberPadSection: React.FC<Props> = (props) => {
     // const [output, _setOutput] = useState('0')
-    const output = props.amount.toString()
+    const output = props.amount
     const setOutput = (output: string) => {
         let dot = output.indexOf('.')
         //限制小数点后两位数
         if (dot !== -1 && output.slice(dot + 1).length > 2) {
-            console.log('===');
             return
         }
         //限制有效长度
         let value
         if (output.length >= 16) {
-            value = parseFloat(output.slice(0, 16))
+            value = output.slice(0, 16)
         } else if (output.length === 0) {
-            value = 0
+            value = '0'
         } else {
             console.log('===');
-            value = parseFloat(output)
+            value = output
         }
         props.onChange(value)
     }
