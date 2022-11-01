@@ -28,12 +28,14 @@ function Money() {
     return (
         <MyLayout>
             <TagsSection selected={selected.tag}
+                         category={selected.category}
                          onChange={tag => onChange({tag})}/>
             <NoteSection note={selected.note}
                          onChange={note => onChange({note})}/>
             <CategorySection category={selected.category}
                              onChange={category => onChange({category})}/>
             <NumberPadSection amount={selected.amount}
+                              category={selected.category}
                               onChange={amount => onChange({amount})}/>
         </MyLayout>
     );

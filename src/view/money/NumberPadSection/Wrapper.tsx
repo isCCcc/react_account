@@ -24,10 +24,18 @@ const Wrapper = styled.section`
       border: 4px solid #f7f7f7;
 
       &.ok {
-        float: right;
-        height: 128px;
-        background: #93d9b4;
-        color: #fff;
+        &-out{
+          float: right;
+          height: 128px;
+          color: #fff;
+          background: #93d9b4;
+        }
+        &-in{
+          float: right;
+          height: 128px;
+          color: #fff;
+          background: #fad797;
+        }
       }
 
       &.zero {

@@ -4,6 +4,7 @@ import {generateOutput} from "./NumberPadSection/generateOutput";
 
 type Props = {
     amount: string,
+    category: '+' | '-',
     onChange: (value: string) => void
 }
 const NumberPadSection: React.FC<Props> = (props) => {
@@ -56,7 +57,7 @@ const NumberPadSection: React.FC<Props> = (props) => {
                 <button>7</button>
                 <button>8</button>
                 <button>9</button>
-                <button className="ok">OK</button>
+                <button className={props.category==='-'?'ok-out':'ok-in'}>OK</button>
                 <button className="zero">0</button>
                 <button>.</button>
             </div>

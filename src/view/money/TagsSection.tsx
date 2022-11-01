@@ -22,9 +22,14 @@ const Wrapper = styled.section`
       font-size: 14px;
       margin: 8px 12px;
 
-      &.selected {
+      &.selected-out {
         color: #2db970;
         background: #e7f7f0;
+      }
+
+      &.selected-in {
+        color: #f2b52d;
+        background: #fff7ea;
       }
     }
   }
@@ -38,13 +43,14 @@ const Wrapper = styled.section`
     margin-top: 8px;
   }
 `
-type Props={
-    selected:string,
-    onChange:(selected:string)=>void
+type Props = {
+    selected: string,
+    category: '+' | '-',
+    onChange: (selected: string) => void
 }
-const TagsSection:React.FC<Props> = (props) => {
+const TagsSection: React.FC<Props> = (props) => {
     const [tags, setTags] = useState<string[]>(['衣', '食', '住', '行', '红包'])
-    const  selected=props.selected
+    const selected = props.selected
     const AddTag = () => {
         let tagName = window.prompt('新增标签名称为：')
         if (tagName !== null) {
@@ -55,17 +61,26 @@ const TagsSection:React.FC<Props> = (props) => {
             }
         }
     }
-    const toggleClassName=(tag:string)=>{
+    const toggleClassName = (tag: string) => {
         props.onChange(tag)
     }
-
+    const selectedTag = (tag: string) => {
+        if (tag === selected) {
+            if (props.category === '-') {
+                return 'selected-out'
+            }else {
+                return 'selected-in'
+            }
+        }
+        return ''
+    }
     return (
         <Wrapper>
             <ol>
                 {tags.map(tag =>
                     <li key={tag}
-                        onClick={()=>toggleClassName(tag)}
-                        className={tag===selected?'selected':''}>{tag}</li>)}
+                        onClick={() => toggleClassName(tag)}
+                        className={selectedTag(tag)}>{tag}</li>)}
             </ol>
             <button onClick={AddTag}>新增标签</button>
         </Wrapper>
