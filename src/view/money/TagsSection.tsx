@@ -38,10 +38,13 @@ const Wrapper = styled.section`
     margin-top: 8px;
   }
 `
-
-const TagsSection:React.FC = () => {
+type Props={
+    selected:string,
+    onChange:(selected:string)=>void
+}
+const TagsSection:React.FC<Props> = (props) => {
     const [tags, setTags] = useState<string[]>(['衣', '食', '住', '行', '红包'])
-    const [selected,setSelected]=useState<string>()
+    const  selected=props.selected
     const AddTag = () => {
         let tagName = window.prompt('新增标签名称为：')
         if (tagName !== null) {
@@ -53,7 +56,7 @@ const TagsSection:React.FC = () => {
         }
     }
     const toggleClassName=(tag:string)=>{
-        setSelected(tag)
+        props.onChange(tag)
     }
 
     return (

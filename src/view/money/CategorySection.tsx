@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, {useState} from "react";
+import React from "react";
 
 const Wrapper = styled.section`
   outline: 1px solid #f5f5f5;
@@ -48,16 +48,21 @@ const Wrapper = styled.section`
     }
   }
 `
-const CategorySection: React.FC = () => {
-    const [selected, setSelected] = useState<('+' | '-')>('-')
+type Props={
+    category:('+'|'-'),
+    onChange:(category:('+'|'-'))=>void
+}
+const CategorySection: React.FC<Props> = (props) => {
+    // const [selected, setSelected] = useState<('+' | '-')>('-')
+    const category=props.category
     const toggleSelected = (category: ('+' | '-')) => {
-        setSelected(category)
+        props.onChange(category)
     }
     return (
         <Wrapper>
             <ol>
-                <li onClick={()=>toggleSelected('-')} className={selected === '-' ? 'selected-out' : ''}>支出</li>
-                <li onClick={()=>toggleSelected('+')} className={selected === '+' ? 'selected-in' : ''}>收入</li>
+                <li onClick={()=>toggleSelected('-')} className={category === '-' ? 'selected-out' : ''}>支出</li>
+                <li onClick={()=>toggleSelected('+')} className={category === '+' ? 'selected-in' : ''}>收入</li>
             </ol>
         </Wrapper>
     )

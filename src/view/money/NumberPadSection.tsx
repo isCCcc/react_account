@@ -1,31 +1,43 @@
-import React, {useState} from "react";
+import React from "react";
 import {Wrapper} from "./NumberPadSection/Wrapper";
 import {generateOutput} from "./NumberPadSection/generateOutput";
 
-const NumberPadSection: React.FC = () => {
-    const [output, _setOutput] = useState('0')
+type Props = {
+    amount: number,
+    onChange: (value: number) => void
+}
+const NumberPadSection: React.FC<Props> = (props) => {
+    // const [output, _setOutput] = useState('0')
+    const output = props.amount.toString()
     const setOutput = (output: string) => {
         let dot = output.indexOf('.')
         //限制小数点后两位数
         if (dot !== -1 && output.slice(dot + 1).length > 2) {
+            console.log('===');
             return
         }
         //限制有效长度
+        let value
         if (output.length >= 16) {
-            output = output.slice(0, -1)
+            value = parseFloat(output.slice(0, 16))
         } else if (output.length === 0) {
-            output = '0'
+            value = 0
+        } else {
+            console.log('===');
+            value = parseFloat(output)
         }
-        _setOutput(output)
+        props.onChange(value)
     }
     const onClickButtonWrapper = (e: React.MouseEvent) => {
         const text = (e.target as HTMLButtonElement).textContent;
-        if(text===null){return}
-        if(text==='OK'){
+        if (text === null) {
+            return
+        }
+        if (text === 'OK') {
             //TODO
             return
         }
-        if ('0123456789.'.split('').concat(['清空','删除']).indexOf(text)>=0) {
+        if ('0123456789.'.split('').concat(['清空', '删除']).indexOf(text) >= 0) {
             // @ts-ignore
             setOutput(generateOutput(text, output))
         }
