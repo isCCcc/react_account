@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import React, {useState} from "react";
+import React from "react";
+import {useTags} from "../../hooks/useTags";
+import {createId} from "../../lib/createId";
 
 const Wrapper = styled.section`
   background: #fff;
@@ -49,15 +51,16 @@ type Props = {
     onChange: (selected: string) => void
 }
 const TagsSection: React.FC<Props> = (props) => {
-    const [tags, setTags] = useState<string[]>(['衣', '食', '住', '行', '红包'])
+    const {tags,addTag} = useTags()
     const selected = props.selected
     const AddTag = () => {
         let tagName = window.prompt('新增标签名称为：')
         if (tagName !== null) {
-            if (tags.find(t => t === tagName)) {
+            if (tags.find(t => t.category===props.category && t.name === tagName )) {
                 alert('该标签名已存在，请重新输入')
             } else {
-                setTags([...tags, tagName])
+                console.log(props.category);
+                addTag({t_id:createId(),category:props.category,name:tagName})
             }
         }
     }
@@ -68,19 +71,22 @@ const TagsSection: React.FC<Props> = (props) => {
         if (tag === selected) {
             if (props.category === '-') {
                 return 'selected-out'
-            }else {
+            } else {
                 return 'selected-in'
             }
         }
         return ''
     }
+    const categoryTags = () => {
+        return tags.filter(item => item.category === props.category)
+    }
     return (
         <Wrapper>
             <ol>
-                {tags.map(tag =>
-                    <li key={tag}
-                        onClick={() => toggleClassName(tag)}
-                        className={selectedTag(tag)}>{tag}</li>)}
+                {categoryTags().map(tag =>
+                    <li key={tag.t_id}
+                        onClick={() => toggleClassName(tag.name)}
+                        className={selectedTag(tag.name)}>{tag.name}</li>)}
             </ol>
             <button onClick={AddTag}>新增标签</button>
         </Wrapper>
