@@ -37,10 +37,15 @@ const useTags = () => {
     const saveTags = (tags: Tags[]) => {
         localStorage.setItem('tags', JSON.stringify(tags))
     }
-
+    const findTagByName = (tagName: string) => {
+        return tags.filter(item => item.name === tagName)[0].t_id
+    }
+    const findTagById=(tagId:number)=>{
+        return tags.filter(item=>item.t_id===tagId)[0].name
+    }
 
     return {
-        tags, setTags, addTag
+        tags, setTags, addTag,findTagByName,findTagById
     }
 }
 export {useTags}

@@ -46,12 +46,12 @@ const Wrapper = styled.section`
   }
 `
 type Props = {
-    selected: string,
+    selected: number,
     category: '+' | '-',
-    onChange: (selected: string) => void
+    onChange: (tagId:number) => void
 }
 const TagsSection: React.FC<Props> = (props) => {
-    const {tags,addTag} = useTags()
+    const {tags,addTag,findTagByName,findTagById} = useTags()
     const selected = props.selected
     const AddTag = () => {
         let tagName = window.prompt('新增标签名称为：')
@@ -59,16 +59,15 @@ const TagsSection: React.FC<Props> = (props) => {
             if (tags.find(t => t.category===props.category && t.name === tagName )) {
                 alert('该标签名已存在，请重新输入')
             } else {
-                console.log(props.category);
                 addTag({t_id:createId(),category:props.category,name:tagName})
             }
         }
     }
     const toggleClassName = (tag: string) => {
-        props.onChange(tag)
+        props.onChange(findTagByName(tag))
     }
     const selectedTag = (tag: string) => {
-        if (tag === selected) {
+        if (tag === findTagById(selected)) {
             if (props.category === '-') {
                 return 'selected-out'
             } else {

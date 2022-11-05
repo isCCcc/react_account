@@ -1,5 +1,5 @@
 import Layout from "components/Layout";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {CategorySection} from "view/money/CategorySection";
 import {NoteSection} from "view/money/NoteSection";
@@ -14,7 +14,7 @@ type Category = '-' | '+'
 
 function Money() {
     const [selected, setSelected] = useState({
-        tag: '',
+        tag: -1,
         note: '',
         category: '-' as Category,
         amount: '0'
@@ -34,8 +34,7 @@ function Money() {
                          onChange={note => onChange({note})}/>
             <CategorySection category={selected.category}
                              onChange={category => onChange({category})}/>
-            <NumberPadSection amount={selected.amount}
-                              category={selected.category}
+            <NumberPadSection selected={selected}
                               onChange={amount => onChange({amount})}/>
         </MyLayout>
     );

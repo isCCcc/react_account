@@ -3,13 +3,17 @@ import {Wrapper} from "./NumberPadSection/Wrapper";
 import {generateOutput} from "./NumberPadSection/generateOutput";
 
 type Props = {
-    amount: string,
-    category: '+' | '-',
     onChange: (value: string) => void
+    selected: Selected
+}
+type Selected = {
+    tag: number
+    note: string
+    category: '-' | '+'
+    amount: string
 }
 const NumberPadSection: React.FC<Props> = (props) => {
-    // const [output, _setOutput] = useState('0')
-    const output = props.amount
+    const output = props.selected.amount
     const setOutput = (output: string) => {
         let dot = output.indexOf('.')
         //限制小数点后两位数
@@ -23,7 +27,6 @@ const NumberPadSection: React.FC<Props> = (props) => {
         } else if (output.length === 0) {
             value = '0'
         } else {
-            console.log('===');
             value = output
         }
         props.onChange(value)
@@ -34,8 +37,7 @@ const NumberPadSection: React.FC<Props> = (props) => {
             return
         }
         if (text === 'OK') {
-            //TODO
-            return
+            console.log(props.selected);
         }
         if ('0123456789.'.split('').concat(['清空', '删除']).indexOf(text) >= 0) {
             // @ts-ignore
@@ -57,7 +59,7 @@ const NumberPadSection: React.FC<Props> = (props) => {
                 <button>7</button>
                 <button>8</button>
                 <button>9</button>
-                <button className={props.category==='-'?'ok-out':'ok-in'}>OK</button>
+                <button className={props.selected.category === '-' ? 'ok-out' : 'ok-in'}>OK</button>
                 <button className="zero">0</button>
                 <button>.</button>
             </div>

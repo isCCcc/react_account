@@ -1,0 +1,4 @@
+const useRecords=()=>{
+
+}
+export {useRecords}
