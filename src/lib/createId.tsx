@@ -1,7 +1,14 @@
-let id = JSON.parse(localStorage.getItem('tags_id') || '0')
+let t_id = JSON.parse(localStorage.getItem('tags_id') || '0')
+let r_id = JSON.parse(localStorage.getItem('records_id') || '0')
 
-export const createId=()=>{
-    id+=1
-    localStorage.setItem('tags_id',id)
-    return id
+const createTagId = () => {
+    t_id += 1
+    localStorage.setItem('tags_id', t_id)
+    return t_id
 }
+const createRecordId = () => {
+    r_id += 1
+    localStorage.setItem('tags_id', r_id)
+    return r_id
+}
+export {createTagId, createRecordId}

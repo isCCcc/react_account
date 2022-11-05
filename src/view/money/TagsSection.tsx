@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React from "react";
 import {useTags} from "../../hooks/useTags";
-import {createId} from "../../lib/createId";
+import {createTagId} from "../../lib/createId";
 
 const Wrapper = styled.section`
   background: #fff;
@@ -48,18 +48,19 @@ const Wrapper = styled.section`
 type Props = {
     selected: number,
     category: '+' | '-',
-    onChange: (tagId:number) => void
+    onChange: (tagId: number) => void
 }
 const TagsSection: React.FC<Props> = (props) => {
-    const {tags,addTag,findTagByName,findTagById} = useTags()
+    const {tags, addTag, findTagByName, findTagById} = useTags()
+    // const {createTagId}=createId()
     const selected = props.selected
     const AddTag = () => {
         let tagName = window.prompt('新增标签名称为：')
         if (tagName !== null) {
-            if (tags.find(t => t.category===props.category && t.name === tagName )) {
+            if (tags.find(t => t.category === props.category && t.name === tagName)) {
                 alert('该标签名已存在，请重新输入')
             } else {
-                addTag({t_id:createId(),category:props.category,name:tagName})
+                addTag({t_id: createTagId(), category: props.category, name: tagName})
             }
         }
     }

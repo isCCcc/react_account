@@ -1,6 +1,7 @@
 import React from "react";
 import {Wrapper} from "./NumberPadSection/Wrapper";
 import {generateOutput} from "./NumberPadSection/generateOutput";
+import {useRecords} from "../../hooks/useRecords";
 
 type Props = {
     onChange: (value: string) => void
@@ -13,6 +14,7 @@ type Selected = {
     amount: string
 }
 const NumberPadSection: React.FC<Props> = (props) => {
+    const {addRecord}=useRecords()
     const output = props.selected.amount
     const setOutput = (output: string) => {
         let dot = output.indexOf('.')
@@ -37,7 +39,11 @@ const NumberPadSection: React.FC<Props> = (props) => {
             return
         }
         if (text === 'OK') {
-            console.log(props.selected);
+            if(props.selected.amount==='0'){
+                alert('请输入有意义金额')
+            }else {
+                addRecord(props.selected)
+            }
         }
         if ('0123456789.'.split('').concat(['清空', '删除']).indexOf(text) >= 0) {
             // @ts-ignore
