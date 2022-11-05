@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {createRecordId} from "../lib/createId";
+import {floatNumber} from "../view/money/NumberPadSection/floatNumber";
 
 type Record = {
     tag: number
@@ -14,22 +15,24 @@ type Records = {
 
 const useRecords = () => {
     const [records, setRecords] = useState<Records[]>([])
-    useEffect(()=>{
-        let localRecords=JSON.parse(localStorage.getItem('records')||'[]')
+    useEffect(() => {
+        let localRecords = JSON.parse(localStorage.getItem('records') || '[]')
         setRecords(localRecords)
-    },[])
+    }, [])
     const addRecord = (record: Record) => {
+        let r = JSON.parse(JSON.stringify(record))
+        r.amount=floatNumber(r.amount)
         let newRecord = {
             r_id: createRecordId(),
             createAt: Date.now(),
-            ...record
+            ...r
         }
-        setRecords([...records,newRecord])
+        setRecords([...records, newRecord])
         saveRecords([...records,newRecord])
-        console.log(newRecord);
+        // console.log(newRecord);
     }
-    const saveRecords=(r:Records[])=>{
-        localStorage.setItem('records',JSON.stringify(r))
+    const saveRecords = (r: Records[]) => {
+        localStorage.setItem('records', JSON.stringify(r))
     }
     return {addRecord}
 }
