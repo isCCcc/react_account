@@ -8,7 +8,7 @@ const createTagId = () => {
 }
 const createRecordId = () => {
     r_id += 1
-    localStorage.setItem('tags_id', r_id)
+    localStorage.setItem('records_id', r_id)
     return r_id
 }
 export {createTagId, createRecordId}
