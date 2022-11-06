@@ -1,7 +1,6 @@
-import Nav from "./Nav";
+import Nav from "components/Nav";
 import React from "react";
 import styled from "styled-components";
-import App from "../App";
 
 const AppWrapper = styled.div`
   height: 100vh;

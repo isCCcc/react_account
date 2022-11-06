@@ -1,5 +1,5 @@
 import Layout from "components/Layout";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import {CategorySection} from "view/money/CategorySection";
 import {NoteSection} from "view/money/NoteSection";
@@ -35,7 +35,6 @@ function Money() {
         console.log(obj);
         setSelected({...obj})
     }
-    const note = () => selected.note
     return (
         <MyLayout>
             <TagsSection selected={selected.tag}

@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
-import {createRecordId} from "../lib/createId";
-import {floatNumber} from "../view/money/NumberPadSection/floatNumber";
+import {createRecordId} from "lib/createId";
+import {floatNumber} from "view/money/NumberPadSection/floatNumber";
 
 type Record = {
     tag: number

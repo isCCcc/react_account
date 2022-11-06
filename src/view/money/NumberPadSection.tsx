@@ -1,7 +1,7 @@
 import React from "react";
-import {Wrapper} from "./NumberPadSection/Wrapper";
-import {generateOutput} from "./NumberPadSection/generateOutput";
-import {useRecords} from "../../hooks/useRecords";
+import {Wrapper} from "view/money/NumberPadSection/Wrapper";
+import {generateOutput} from "view/money/NumberPadSection/generateOutput";
+import {useRecords} from "hooks/useRecords";
 
 type Props = {
     onChange: (value: string) => void
