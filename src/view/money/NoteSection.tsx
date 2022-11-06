@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import styled from "styled-components";
 
 export const Wrapper = styled.section`
@@ -24,7 +24,7 @@ type Props = {
     onChange: (note: string) => void
 }
 const NoteSection: React.FC<Props> = (props) => {
-    const note = props.note
+    let note = props.note
     const refInput = useRef<HTMLInputElement>(null)
     const onBlur = () => {
         if (refInput.current !== null) {
@@ -36,6 +36,7 @@ const NoteSection: React.FC<Props> = (props) => {
             <label>备注</label>
             <input type="text" placeholder="请在这里输入备注"
                    ref={refInput}
+                   key={note}
                    defaultValue={note}
                    onBlur={onBlur}
             />

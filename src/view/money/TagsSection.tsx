@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React from "react";
+import React, {useEffect} from "react";
 import {useTags} from "../../hooks/useTags";
 import {createTagId} from "../../lib/createId";
 
@@ -52,7 +52,6 @@ type Props = {
 }
 const TagsSection: React.FC<Props> = (props) => {
     const {tags, addTag, findTagByName, findTagById} = useTags()
-    // const {createTagId}=createId()
     const selected = props.selected
     const AddTag = () => {
         let tagName = window.prompt('新增标签名称为：')

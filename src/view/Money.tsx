@@ -11,6 +11,12 @@ const MyLayout = styled(Layout)`
   flex-direction: column;
 `
 type Category = '-' | '+'
+type Selected = {
+    tag: number,
+    note: string,
+    category: Category,
+    amount: string
+}
 
 function Money() {
     const [selected, setSelected] = useState({
@@ -25,6 +31,11 @@ function Money() {
             ...obj
         })
     }
+    const onInit = (obj: Selected) => {
+        console.log(obj);
+        setSelected({...obj})
+    }
+    const note = () => selected.note
     return (
         <MyLayout>
             <TagsSection selected={selected.tag}
@@ -35,7 +46,9 @@ function Money() {
             <CategorySection category={selected.category}
                              onChange={category => onChange({category})}/>
             <NumberPadSection selected={selected}
-                              onChange={amount => onChange({amount})}/>
+                              onChange={amount => onChange({amount})}
+                              init={obj => onInit(obj)}
+            />
         </MyLayout>
     );
 }

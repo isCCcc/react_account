@@ -6,6 +6,7 @@ import {useRecords} from "../../hooks/useRecords";
 type Props = {
     onChange: (value: string) => void
     selected: Selected
+    init: (obj:Selected) => void
 }
 type Selected = {
     tag: number
@@ -14,7 +15,7 @@ type Selected = {
     amount: string
 }
 const NumberPadSection: React.FC<Props> = (props) => {
-    const {addRecord}=useRecords()
+    const {addRecord} = useRecords()
     const output = props.selected.amount
     const setOutput = (output: string) => {
         let dot = output.indexOf('.')
@@ -39,9 +40,16 @@ const NumberPadSection: React.FC<Props> = (props) => {
             return
         }
         if (text === 'OK') {
-            if(props.selected.amount==='0'){
+            if (props.selected.amount === '0') {
                 alert('请输入有意义金额')
-            }else {
+            } else {
+                props.init({
+                    tag: -1,
+                    note: '',
+                    category: props.selected.category,
+                    amount: '0'
+                })
+                alert('记账成功，可前往明细页面查看记录')
                 addRecord(props.selected)
             }
         }
