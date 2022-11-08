@@ -44,7 +44,7 @@ const useTags = () => {
         if (tags.filter(item => item.t_id === tagId).length > 0) {
             return tags.filter(item => item.t_id === tagId)[0].name
         } else {
-            return ''
+            return '其它'
         }
     }
 

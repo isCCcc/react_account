@@ -23,6 +23,9 @@ const useRecords = () => {
     const addRecord = (record: Record) => {
         let r = JSON.parse(JSON.stringify(record))
         r.amount = floatNumber(r.amount)
+        if(r.note===''){
+            console.log('ok');
+            r.note='暂无备注'}
         let newRecord = {
             r_id: createRecordId(),
             createAt: Date.now(),
@@ -30,7 +33,6 @@ const useRecords = () => {
         }
         setRecords([...records, newRecord])
         saveRecords([...records, newRecord])
-        // console.log(newRecord);
     }
     const saveRecords = (r: Records[]) => {
         localStorage.setItem('records', JSON.stringify(r))
@@ -50,14 +52,17 @@ const useRecords = () => {
         let res = []
         // @ts-ignore
         for (let [key, val] of newRecords) {
-            let temp = []
             val.sort((a: Records, b: Records) => b.createAt - a.createAt)
-            temp.push(key, val)
-            res.push(temp)
+            let total = val.reduce((num: number, record: Records) => {
+                if (record.category === '+') {
+                    return num + parseFloat(record.amount)
+                } else {
+                    return num - parseFloat(record.amount)
+                }
+            }, 0)
+            res.push([key, val, floatNumber(total.toString())])
         }
-        // @ts-ignore
-        res.sort((a, b) => dayjs(b[0]) - dayjs(a[0]))
-        console.log(res);
+        res.sort((a, b) => b[1][0].createAt - a[1][0].createAt)
         return res
     }
     return {addRecord, getRecords}

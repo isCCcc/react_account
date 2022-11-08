@@ -24,11 +24,28 @@ const Wrapper = styled.section`
     .title {
       border-radius: 10px 10px 0 0;
       display: flex;
-      padding: 8px 15px;
+      padding: 10px 15px;
       background: #fafafa;
+      justify-content: space-between;
+      align-items: center;
+
+      > span {
+        display: flex;
+        align-items: center;
+
+        .icon {
+          width: 18px;
+          height: 18px;
+          fill: #c7c7c7;
+          margin-right: 4px;
+        }
+      }
+
     }
 
     > ul {
+      padding-bottom: 5px;
+
       > li {
         padding: 5px 16px;
         display: flex;
@@ -52,18 +69,26 @@ const Wrapper = styled.section`
           border-bottom: 1px solid #c7c7c7;
           font-size: 18px;
           padding: 6px;
-          >.tag{
+
+          > .tag {
             position: absolute;
             left: 10px;
           }
-          >.note{
+
+          > .note {
+            width: 94%;
+            //height: 15px;
             position: absolute;
             left: 10px;
             bottom: 6px;
             font-size: 12px;
             color: #c7c7c7;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
           }
-          >.amount{
+
+          > .amount {
             position: absolute;
             right: 10px;
           }
@@ -75,7 +100,7 @@ const Wrapper = styled.section`
 
 const Content: React.FC = () => {
     const {getRecords} = useRecords()
-    const {findTagById}=useTags()
+    const {findTagById} = useTags()
     useEffect(() => {
         getRecords()
     })
@@ -84,7 +109,13 @@ const Content: React.FC = () => {
             {
                 getRecords().map(list =>
                     <ol key={list[0]}>
-                        <span className="title">{list[0]}</span>
+                        <div className="title">
+                            <span>{list[0]}</span>
+                            <span>
+                                <Icon name="spend"/>
+                                {list[2]}
+                            </span>
+                        </div>
                         <ul>
                             {list[1].map((item: Records) =>
                                 <li key={item.r_id}>
@@ -92,7 +123,7 @@ const Content: React.FC = () => {
                                     <div>
                                         <span className="tag">{findTagById(item.tag)}</span>
                                         <span className="note">{item.note}</span>
-                                        <span className="amount">{item.amount}</span>
+                                        <span className="amount">{item.category}{item.amount}</span>
                                     </div>
                                 </li>
                             )}
