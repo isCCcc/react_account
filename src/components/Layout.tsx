@@ -8,14 +8,18 @@ const AppWrapper = styled.div`
 `
 const Wrapper = styled.div`
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
-  height: 90vh;
-  max-width: 375px;
+  height: 100vh;
+  max-width: 100vw;
   display: flex;
   flex-direction: column;
   position: relative;
   left: 50%;
   top: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
+  @media (min-width: 500px) {
+    height: 90vh;
+    width: 375px;
+  }
 `
 const Main = styled.div`
   flex-grow: 1;
