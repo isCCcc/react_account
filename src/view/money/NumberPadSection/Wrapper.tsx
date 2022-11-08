@@ -8,6 +8,8 @@ const Wrapper = styled.section`
     text-align: right;
     box-shadow: inset 0 -5px 5px -5px rgba(0, 0, 0, 0.25),
     inset 0 5px 5px -5px rgba(0, 0, 0, 0.25);
+    background: white;
+
   }
 
   .pad {

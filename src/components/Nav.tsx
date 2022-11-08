@@ -10,10 +10,12 @@ const NavWrapper = styled.div`
 
   > ul {
     display: flex;
+    
 
     > li {
       width: 33.3333%;
       text-align: center;
+      padding-top: 4px;
 
       > a {
         padding: 4px 0;
