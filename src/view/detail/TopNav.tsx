@@ -3,11 +3,14 @@ import styled from "styled-components";
 import dayjs from "dayjs";
 
 const Wrapper = styled.nav`
-  width: 100vw;
+  width: 100%;
   background: #2db970;
   font-size: 14px;
   display: flex;
   flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 `
 const Title = styled.div`
   text-align: center;
@@ -74,18 +77,24 @@ const TopNav: React.FC = () => {
         setYears(y)
         setMonths(m)
     }, [])
+    const onChange = () => {
+    }
     return (
         <Wrapper>
             <Title>布朗奇 记账</Title>
             <Times>
                 <div className="year">
-                    <select id="year" name="year" value={dayjs().format('YYYY')}>
+                    <select id="year" name="year"
+                            value={dayjs().format('YYYY')}
+                            onChange={onChange}>
                         {years.map(year => <option key={year} value={year}>{year}</option>)}
                     </select>
                     年
                 </div>
                 <div className="month">
-                    <select id="month" name="month" value={dayjs().format('M')}>
+                    <select id="month" name="month"
+                            value={dayjs().format('M')}
+                            onChange={onChange}>
                         {months.map(month =>
                             <option key={month} value={month}
                             >{month}</option>)}

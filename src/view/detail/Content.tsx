@@ -77,7 +77,6 @@ const Wrapper = styled.section`
 
           > .note {
             width: 94%;
-            //height: 15px;
             position: absolute;
             left: 10px;
             bottom: 6px;

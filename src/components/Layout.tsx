@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 const AppWrapper = styled.div`
   height: 100vh;
-
 `
 const Wrapper = styled.div`
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
@@ -24,7 +23,7 @@ const Wrapper = styled.div`
 const Main = styled.div`
   flex-grow: 1;
   overflow: auto;
-  background: #f5f5f5;
+  background: #ebebeb;
 `
 
 const Layout = (props: any) => {
