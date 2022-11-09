@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import styled from "styled-components";
 import dayjs from "dayjs";
 
@@ -64,7 +64,8 @@ const Tabs = styled.div`
 `
 const TopNav: React.FC = () => {
     const [years, setYears] = useState<number[]>([])
-    const [months, setMonths] = useState<number[]>([])
+    const [months, setMonths] = useState<string[]>([])
+    const [selectDate, setSelectDate] = useState({year: dayjs().format('YYYY'), month: dayjs().format('MM')})
     useEffect(() => {
         let y = []
         let m = []
@@ -72,12 +73,26 @@ const TopNav: React.FC = () => {
             y.push(dayjs().get("year") - i)
         }
         for (let i = 0; i < 12; i++) {
-            m.push(i + 1)
+            let x = i + 1
+            if (x < 10) m.push('0' + x)
+            else m.push(x.toString())
         }
         setYears(y)
         setMonths(m)
     }, [])
-    const onChange = () => {
+    const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        let date = e.target.value
+        if (date.length === 4) {
+            setSelectDate({
+                year: date,
+                month: selectDate.month
+            })
+        } else {
+            setSelectDate({
+                year: selectDate.year,
+                month: date
+            })
+        }
     }
     return (
         <Wrapper>
@@ -85,16 +100,15 @@ const TopNav: React.FC = () => {
             <Times>
                 <div className="year">
                     <select id="year" name="year"
-                            value={dayjs().format('YYYY')}
-                            onChange={onChange}>
+                            value={selectDate.year}
+                            onChange={(e) => onChange(e)}>
                         {years.map(year => <option key={year} value={year}>{year}</option>)}
                     </select>
                     年
                 </div>
                 <div className="month">
-                    <select id="month" name="month"
-                            value={dayjs().format('M')}
-                            onChange={onChange}>
+                    <select value={selectDate.month}
+                            onChange={(e) => onChange(e)}>
                         {months.map(month =>
                             <option key={month} value={month}
                             >{month}</option>)}
