@@ -16,11 +16,9 @@ type Records = {
 
 const useRecords = () => {
     const [records, setRecords] = useState<Records[]>([])
-    const [filterRecords, setFilterRecords] = useState<Records[]>([])
     useEffect(() => {
         let localRecords = JSON.parse(localStorage.getItem('records') || '[]')
         setRecords(localRecords)
-        selectedRecords({year: 2022, month: 11})
     }, [])
     const addRecord = (record: Record) => {
         let r = JSON.parse(JSON.stringify(record))
@@ -40,12 +38,7 @@ const useRecords = () => {
     const saveRecords = (r: Records[]) => {
         localStorage.setItem('records', JSON.stringify(r))
     }
-    //TODO-切换日期数据不
-    const selectedRecords = (date: { year: number, month: number }) => {
-        let x = records.filter(r => dayjs(date.year.toString()).isSame(r.createAt, "year") &&
-            dayjs(date.month.toString()).isSame(dayjs(r.createAt).format('M'), "month"))
-        setFilterRecords(x)
-    }
+
     const getRecords = () =>  {
         let newRecords = new Map()
         records.forEach(item => {
@@ -74,6 +67,6 @@ const useRecords = () => {
         res.sort((a, b) => b[1][0].createAt - a[1][0].createAt)
         return res
     }
-    return {addRecord, getRecords, selectedRecords}
+    return {addRecord, getRecords}
 }
 export {useRecords}
