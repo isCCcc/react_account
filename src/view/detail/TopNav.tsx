@@ -48,7 +48,6 @@ const Tabs = styled.div`
 
   > div {
     width: 50%;
-    //padding: 16px;
     display: flex;
     flex-direction: column;
     text-align: center;

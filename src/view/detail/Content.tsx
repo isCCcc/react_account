@@ -89,13 +89,23 @@ const Wrapper = styled.section`
 const Tips = styled.div`
   margin-top: 40%;
   font-size: 20px;
-  margin-left: 50%;
-  transform: translateX(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: center;
 
   > a {
-    padding: 0 2px;
-    color: #2db970;
-    border-bottom: 1px solid #2db970;
+    display: flex;
+    
+    >.icon{
+      width: 24px;
+      height: 24px;
+      fill: #2db970;
+    }
+    > span {
+      padding: 0 2px;
+      color: #2db970;
+      border-bottom: 1px solid #2db970;
+    }
   }
 `
 
@@ -123,8 +133,6 @@ const Content: React.FC<Props> = (props) => {
     // 获取初始数据 && 监听日期选择变化，更新数据
     useEffect(() => {
         getRecordsData(props.selectDate)
-        console.log(getRecordsData(props.selectDate));
-
     }, [props.selectDate])
 
     //渲染数据
@@ -156,7 +164,12 @@ const Content: React.FC<Props> = (props) => {
     }
     const noData = () => {
         return (
-            <Tips>暂无数据，<NavLink to="/money">去记一笔</NavLink></Tips>
+            <Tips>本月暂无数据，
+                <NavLink to="/money">
+                    <span>去记一笔</span>
+                    <Icon name="account"/>
+                </NavLink>
+            </Tips>
         )
     }
     return (
