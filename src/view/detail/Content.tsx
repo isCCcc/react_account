@@ -3,7 +3,6 @@ import {useRecords} from "hooks/useRecords";
 import styled from "styled-components";
 import Icon from "components/Icon";
 import {useTags} from "hooks/useTags";
-import dayjs from "dayjs";
 import {NavLink} from "react-router-dom";
 
 const Wrapper = styled.section`
@@ -119,29 +118,26 @@ type Props = {
     selectDate: LocalDate,
 }
 const Content: React.FC<Props> = (props) => {
-    const {getRecords} = useRecords()
+    const {getRecordsData} = useRecords()
     const {findTagById} = useTags()
-    //获取初始数据
-    let getData = () => {
-        return getRecords().filter(r => dayjs(props.selectDate.year.toString()).isSame(r[0], "year") &&
-            dayjs(props.selectDate.month.toString()).isSame(dayjs(r[0]).format('M'), "month"))
-    }
-    //监听日期选择变化，更新数据
+    // 获取初始数据 && 监听日期选择变化，更新数据
     useEffect(() => {
-        getData()
+        getRecordsData(props.selectDate)
+        console.log(getRecordsData(props.selectDate));
+
     }, [props.selectDate])
 
     //渲染数据
     const hasData = () => {
         return (
-            getData().map(list =>
+            getRecordsData(props.selectDate).map(list =>
                 <ol key={list[0]}>
                     <div className="title">
                         <span>{list[0]}</span>
                         <span>
-                                <Icon name="spend"/>
-                            {list[2]}
-                            </span>
+                            <Icon name="spend"/>
+                            {list[2].total}
+                        </span>
                     </div>
                     <ul>
                         {list[1].map((item: Records) =>
@@ -164,7 +160,7 @@ const Content: React.FC<Props> = (props) => {
         )
     }
     return (
-        <Wrapper>{getData().length === 0 ? noData() : hasData()}</Wrapper>
+        <Wrapper>{getRecordsData(props.selectDate).length === 0 ? noData() : hasData()}</Wrapper>
     )
 }
 export {Content}

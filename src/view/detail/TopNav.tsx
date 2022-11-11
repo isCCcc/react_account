@@ -1,9 +1,11 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import dayjs from "dayjs";
+import {useRecords} from "../../hooks/useRecords";
 
 const Wrapper = styled.nav`
   width: 100%;
+  padding-bottom: 12px;
   background: #2db970;
   font-size: 14px;
   display: flex;
@@ -42,23 +44,25 @@ const Times = styled.div`
 const Tabs = styled.div`
   flex: 1;
   display: flex;
+  max-width: 66%;
 
   > div {
     width: 50%;
-    padding: 16px;
+    //padding: 16px;
     display: flex;
     flex-direction: column;
     text-align: center;
     justify-content: center;
+    word-break: break-word;
 
     > .text {
       color: #b3eeca;
+      margin-bottom: 12px;
     }
 
     > .number {
       color: white;
       font-size: 20px;
-      padding: 12px;
     }
   }
 `
@@ -75,6 +79,7 @@ const TopNav: React.FC<Props> = (props) => {
     const [years, setYears] = useState<number[]>([])
     const [months, setMonths] = useState<string[]>([])
     const [selectDate, setSelectDate] = useState({year: dayjs().format('YYYY'), month: dayjs().format('MM')})
+    const {getAccount} = useRecords()
     useEffect(() => {
         let y = []
         let m = []
@@ -133,11 +138,11 @@ const TopNav: React.FC<Props> = (props) => {
             <Tabs>
                 <div>
                     <span className="text">总支出（元）</span>
-                    <span className="number">{100.00}</span>
+                    <span className="number">{getAccount(props.selectDate, '-')}</span>
                 </div>
                 <div>
                     <span className="text">总收入（元）</span>
-                    <span className="number">{100.00}</span>
+                    <span className="number">{getAccount(props.selectDate, '+')}</span>
                 </div>
             </Tabs>
         </Wrapper>
