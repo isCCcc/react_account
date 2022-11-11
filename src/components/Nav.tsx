@@ -4,7 +4,6 @@ import React from "react";
 import Icon from "components/Icon";
 
 const NavWrapper = styled.div`
-  //@import 'helper.scss';
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
   line-height: 24px;
 

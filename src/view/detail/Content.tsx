@@ -3,17 +3,8 @@ import {useRecords} from "hooks/useRecords";
 import styled from "styled-components";
 import Icon from "components/Icon";
 import {useTags} from "hooks/useTags";
-
-type Record = {
-    tag: number
-    note: string
-    category: '-' | '+'
-    amount: string
-}
-type Records = {
-    r_id: number,
-    createAt: number
-} & Record
+import dayjs from "dayjs";
+import {NavLink} from "react-router-dom";
 
 const Wrapper = styled.section`
   > ol {
@@ -96,40 +87,84 @@ const Wrapper = styled.section`
     }
   }
 `
+const Tips = styled.div`
+  margin-top: 40%;
+  font-size: 20px;
+  margin-left: 50%;
+  transform: translateX(-50%);
 
-const Content: React.FC = () => {
+  > a {
+    padding: 0 2px;
+    color: #2db970;
+    border-bottom: 1px solid #2db970;
+  }
+`
+
+type Record = {
+    tag: number
+    note: string
+    category: '-' | '+'
+    amount: string
+}
+type Records = {
+    r_id: number,
+    createAt: number
+} & Record
+
+type LocalDate = {
+    year: string,
+    month: string
+}
+type Props = {
+    selectDate: LocalDate,
+}
+const Content: React.FC<Props> = (props) => {
     const {getRecords} = useRecords()
     const {findTagById} = useTags()
+    //获取初始数据
+    let getData = () => {
+        return getRecords().filter(r => dayjs(props.selectDate.year.toString()).isSame(r[0], "year") &&
+            dayjs(props.selectDate.month.toString()).isSame(dayjs(r[0]).format('M'), "month"))
+    }
+    //监听日期选择变化，更新数据
     useEffect(() => {
-        getRecords()
-    })
-    return (
-        <Wrapper>
-            {
-                getRecords().map(list =>
-                    <ol key={list[0]}>
-                        <div className="title">
-                            <span>{list[0]}</span>
-                            <span>
+        getData()
+    }, [props.selectDate])
+
+    //渲染数据
+    const hasData = () => {
+        return (
+            getData().map(list =>
+                <ol key={list[0]}>
+                    <div className="title">
+                        <span>{list[0]}</span>
+                        <span>
                                 <Icon name="spend"/>
-                                {list[2]}
+                            {list[2]}
                             </span>
-                        </div>
-                        <ul>
-                            {list[1].map((item: Records) =>
-                                <li key={item.r_id}>
-                                    <Icon name={item.category === '-' ? 'outcome' : 'income'}/>
-                                    <div>
-                                        <span className="tag">{findTagById(item.tag)}</span>
-                                        <span className="note">{item.note}</span>
-                                        <span className="amount">{item.category}{item.amount}</span>
-                                    </div>
-                                </li>
-                            )}
-                        </ul>
-                    </ol>)
-            }
-        </Wrapper>
+                    </div>
+                    <ul>
+                        {list[1].map((item: Records) =>
+                            <li key={item.r_id}>
+                                <Icon name={item.category === '-' ? 'outcome' : 'income'}/>
+                                <div>
+                                    <span className="tag">{findTagById(item.tag)}</span>
+                                    <span className="note">{item.note}</span>
+                                    <span className="amount">{item.category}{item.amount}</span>
+                                </div>
+                            </li>
+                        )}
+                    </ul>
+                </ol>)
+        )
+    }
+    const noData = () => {
+        return (
+            <Tips>暂无数据，<NavLink to="/money">去记一笔</NavLink></Tips>
+        )
+    }
+    return (
+        <Wrapper>{getData().length === 0 ? noData() : hasData()}</Wrapper>
     )
 }
 export {Content}

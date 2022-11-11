@@ -14,7 +14,6 @@ function App() {
                 <Route path="/money" element={<Money/>}/>
                 <Route path="/statistics" element={<Statistics/>}/>
                 <Route path="/" element={<Navigate replace to="/money"/>}/>
-                {/*<Route path="/" element={<Money/>}/>*/}
                 <Route path="*" element={<NoMatch/>}/>
             </Routes>
         </Router>

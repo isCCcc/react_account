@@ -62,7 +62,16 @@ const Tabs = styled.div`
     }
   }
 `
-const TopNav: React.FC = () => {
+
+type LocalDate = {
+    year: string,
+    month: string
+}
+type Props = {
+    selectDate: LocalDate,
+    onChange: (date: LocalDate) => void
+}
+const TopNav: React.FC<Props> = (props) => {
     const [years, setYears] = useState<number[]>([])
     const [months, setMonths] = useState<string[]>([])
     const [selectDate, setSelectDate] = useState({year: dayjs().format('YYYY'), month: dayjs().format('MM')})
@@ -80,6 +89,11 @@ const TopNav: React.FC = () => {
         setYears(y)
         setMonths(m)
     }, [])
+
+    useEffect(() => {
+        props.onChange({...selectDate})
+    }, [selectDate])
+
     const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         let date = e.target.value
         if (date.length === 4) {
