@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import dayjs from "dayjs";
-import {useRecords} from "../../hooks/useRecords";
+import {useRecords} from "hooks/useRecords";
 
 const Wrapper = styled.nav`
   width: 100%;
@@ -77,7 +77,6 @@ type Props = {
 const TopNav: React.FC<Props> = (props) => {
     const [years, setYears] = useState<number[]>([])
     const [months, setMonths] = useState<string[]>([])
-    // const [selectDate, setSelectDate] = useState({year: dayjs().format('YYYY'), month: dayjs().format('MM')})
     const {getAccount} = useRecords()
     useEffect(() => {
         let y = []
@@ -94,23 +93,7 @@ const TopNav: React.FC<Props> = (props) => {
         setMonths(m)
     }, [])
 
-    // useEffect(() => {
-    //     props.onChange({...selectDate})
-    // }, [selectDate])
-
     const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        // let date = e.target.value
-        // if (date.length === 4) {
-        //     setSelectDate({
-        //         year: date,
-        //         month: selectDate.month
-        //     })
-        // } else {
-        //     setSelectDate({
-        //         year: selectDate.year,
-        //         month: date
-        //     })
-        // }
         let date = e.target.value
         let localDate: LocalDate
         if (date.length === 4) {

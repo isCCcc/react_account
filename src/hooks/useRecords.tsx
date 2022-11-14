@@ -24,7 +24,6 @@ const useRecords = () => {
         let r = JSON.parse(JSON.stringify(record))
         r.amount = floatNumber(r.amount)
         if (r.note === '') {
-            console.log('ok');
             r.note = '暂无备注'
         }
         let newRecord = {
@@ -76,6 +75,7 @@ const useRecords = () => {
         return res
     }
     const getRecordsData = (date: SelectDate) => {
+        console.log(getRecords());
         return getRecords().filter(r => dayjs(date.year.toString()).isSame(r[0], "year") &&
             dayjs(date.month.toString()).isSame(dayjs(r[0]).format('M'), "month"))
     }

@@ -32,7 +32,6 @@ function Money() {
         })
     }
     const onInit = (obj: Selected) => {
-        console.log(obj);
         setSelected({...obj})
     }
     return (
