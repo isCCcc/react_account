@@ -1,11 +1,16 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {EChartOption} from "echarts";
 import {Charts} from "./Charts";
+import styled from "styled-components";
 
-const StatisticsContent:React.FC=()=>{
-    let [option, setOption] = useState<EChartOption>({})
-    useEffect(()=>{
-        setOption({
+const Wrapper = styled.section`
+  flex-grow: 1;
+  background: white;
+`
+const StatisticsContent: React.FC = () => {
+    let [options, setOptions] = useState<EChartOption>({})
+    useEffect(() => {
+        setOptions({
             tooltip: {
                 trigger: 'item'
             },
@@ -48,9 +53,11 @@ const StatisticsContent:React.FC=()=>{
                 }
             ]
         })
-    },[])
+    }, [])
     return (
-        <Charts options={option} />
+        <Wrapper>
+            <Charts options={options}/>
+        </Wrapper>
     )
 }
 export {StatisticsContent}

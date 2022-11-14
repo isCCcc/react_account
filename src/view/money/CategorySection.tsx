@@ -49,21 +49,25 @@ const Wrapper = styled.section`
     }
   }
 `
-type Props={
-    category:('+'|'-'),
-    onChange:(category:('+'|'-'))=>void
+type Props = {
+    category: ('+' | '-'),
+    onChange: (category: ('+' | '-')) => void
 }
 const CategorySection: React.FC<Props> = (props) => {
-    // const [selected, setSelected] = useState<('+' | '-')>('-')
-    const category=props.category
+    const category = props.category
     const toggleSelected = (category: ('+' | '-')) => {
         props.onChange(category)
     }
+    const res = () => {
+        if (category === '+') return 'income'
+        else if(category==='-')return 'outcome'
+        else return ''
+    }
     return (
-        <Wrapper>
+        <Wrapper id={res()}>
             <ol>
-                <li onClick={()=>toggleSelected('-')} className={category === '-' ? 'selected-out' : ''}>支出</li>
-                <li onClick={()=>toggleSelected('+')} className={category === '+' ? 'selected-in' : ''}>收入</li>
+                <li onClick={() => toggleSelected('-')} className={category === '-' ? 'selected-out' : ''}>支出</li>
+                <li onClick={() => toggleSelected('+')} className={category === '+' ? 'selected-in' : ''}>收入</li>
             </ol>
         </Wrapper>
     )
