@@ -77,7 +77,7 @@ type Props = {
 const TopNav: React.FC<Props> = (props) => {
     const [years, setYears] = useState<number[]>([])
     const [months, setMonths] = useState<string[]>([])
-    const [selectDate, setSelectDate] = useState({year: dayjs().format('YYYY'), month: dayjs().format('MM')})
+    // const [selectDate, setSelectDate] = useState({year: dayjs().format('YYYY'), month: dayjs().format('MM')})
     const {getAccount} = useRecords()
     useEffect(() => {
         let y = []
@@ -94,23 +94,37 @@ const TopNav: React.FC<Props> = (props) => {
         setMonths(m)
     }, [])
 
-    useEffect(() => {
-        props.onChange({...selectDate})
-    }, [selectDate])
+    // useEffect(() => {
+    //     props.onChange({...selectDate})
+    // }, [selectDate])
 
     const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        // let date = e.target.value
+        // if (date.length === 4) {
+        //     setSelectDate({
+        //         year: date,
+        //         month: selectDate.month
+        //     })
+        // } else {
+        //     setSelectDate({
+        //         year: selectDate.year,
+        //         month: date
+        //     })
+        // }
         let date = e.target.value
+        let localDate: LocalDate
         if (date.length === 4) {
-            setSelectDate({
+            localDate = {
                 year: date,
-                month: selectDate.month
-            })
+                month: props.selectDate.month
+            }
         } else {
-            setSelectDate({
-                year: selectDate.year,
+            localDate = {
+                year: props.selectDate.year,
                 month: date
-            })
+            }
         }
+        props.onChange(localDate)
     }
     return (
         <Wrapper>
@@ -118,14 +132,14 @@ const TopNav: React.FC<Props> = (props) => {
             <Times>
                 <div className="year">
                     <select id="year" name="year"
-                            value={selectDate.year}
+                            value={props.selectDate.year}
                             onChange={(e) => onChange(e)}>
                         {years.map(year => <option key={year} value={year}>{year}</option>)}
                     </select>
                     年
                 </div>
                 <div className="month">
-                    <select value={selectDate.month}
+                    <select value={props.selectDate.month}
                             onChange={(e) => onChange(e)}>
                         {months.map(month =>
                             <option key={month} value={month}
