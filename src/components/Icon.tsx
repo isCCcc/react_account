@@ -4,11 +4,12 @@ const importAll = (requireContext: __WebpackModuleApi.RequireContext) => require
 try {importAll(require.context('icons', true, /\.svg$/));} catch (error) {console.log(error);}
 
 type Props={
-    name:String
+    name:String,
+    className?:string
 }
 const Icon=(props:Props)=>{
     return(
-        <svg className={`icon ${props.name}`} >
+        <svg className={`icon ${props.name}${props.className?' '+props.className:''}`} >
             <use xlinkHref={'#'+props.name} />
         </svg>
     )

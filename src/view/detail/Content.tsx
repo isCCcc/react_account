@@ -27,7 +27,16 @@ const Wrapper = styled.section`
           width: 18px;
           height: 18px;
           fill: #c7c7c7;
+          border-radius: 9px;
           margin-right: 4px;
+        }
+        .out {
+          fill: #e7f7f0;
+          background: #28a665;
+        }
+        .in{
+          fill: #fff7ea;
+          background: #f2b52d;
         }
       }
 
@@ -95,12 +104,13 @@ const Tips = styled.div`
 
   > a {
     display: flex;
-    
-    >.icon{
+
+    > .icon {
       width: 24px;
       height: 24px;
       fill: #2db970;
     }
+
     > span {
       padding: 0 2px;
       color: #2db970;
@@ -143,7 +153,7 @@ const Content: React.FC<Props> = (props) => {
                     <div className="title">
                         <span>{list[0]}</span>
                         <span>
-                            <Icon name="spend"/>
+                            <Icon name="spend" className={list[2].total >= 0 ? "in" : "out"}/>
                             {list[2].total}
                         </span>
                     </div>
