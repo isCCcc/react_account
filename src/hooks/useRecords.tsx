@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {createRecordId} from "lib/createId";
 import {floatNumber} from "view/money/NumberPadSection/floatNumber";
 import dayjs from "dayjs";
@@ -15,11 +15,7 @@ type Records = {
 } & Record
 type SelectDate = { year: string, month: string }
 const useRecords = () => {
-    const [records, setRecords] = useState<Records[]>([])
-    useEffect(() => {
-        let localRecords = JSON.parse(localStorage.getItem('records') || '[]')
-        setRecords(localRecords)
-    }, [])
+    const [records, setRecords] = useState<Records[]>(JSON.parse(localStorage.getItem('records') || '[]'))
     const addRecord = (record: Record) => {
         let r = JSON.parse(JSON.stringify(record))
         r.amount = floatNumber(r.amount)
@@ -75,7 +71,6 @@ const useRecords = () => {
         return res
     }
     const getRecordsData = (date: SelectDate) => {
-        console.log(getRecords());
         return getRecords().filter(r => dayjs(date.year.toString()).isSame(r[0], "year") &&
             dayjs(date.month.toString()).isSame(dayjs(r[0]).format('M'), "month"))
     }

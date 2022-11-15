@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {EChartOption} from "echarts";
-import {Charts} from "./Charts";
+import {Charts} from "view/statistics/Charts";
 import styled from "styled-components";
+import {useRecords} from "hooks/useRecords";
+import {useData} from "../../hooks/useData";
 
 const Wrapper = styled.section`
   flex-grow: 1;
@@ -54,6 +56,14 @@ const StatisticsContent: React.FC = () => {
             ]
         })
     }, [])
+
+    const {getDataByDate,getDataByTag}=useData()
+    useEffect(()=>{
+        console.log(getDataByDate());
+        console.log(getDataByTag());
+    },[])
+
+
     return (
         <Wrapper>
             <Charts options={options}/>
