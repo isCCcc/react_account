@@ -39,7 +39,6 @@ const useData = () => {
         data.map(item => {
             item[1].map((d: Records) => {
                 let tagName = findTagById(d.tag)
-                console.log(d.tag);
                 if (dataOfTag.has(tagName)) {
                     let data = dataOfTag.get(tagName)
                     let outcome = data.outcome

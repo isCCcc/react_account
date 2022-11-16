@@ -48,7 +48,7 @@ function Statistics() {
             <Wrapper>
                 <CategorySection category={category}
                                  onChange={(category) => onChange(category)}/>
-                <StatisticsContent/>
+                <StatisticsContent category={category}/>
             </Wrapper>
         </Layout>
     );

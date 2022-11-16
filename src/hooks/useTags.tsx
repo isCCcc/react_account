@@ -41,7 +41,6 @@ const useTags = () => {
         return tags.filter(item => item.name === tagName)[0].t_id
     }
     const findTagById = (tagId: number) => {
-        console.log(tags);
         if (tags.filter(item => item.t_id === tagId).length > 0) {
             return tags.filter(item => item.t_id === tagId)[0].name
         } else {
