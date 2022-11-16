@@ -2,8 +2,7 @@ import React, {useEffect, useState} from "react";
 import {EChartOption} from "echarts";
 import {Charts} from "view/statistics/Charts";
 import styled from "styled-components";
-import {useRecords} from "hooks/useRecords";
-import {useData} from "../../hooks/useData";
+import {useData} from "hooks/useData";
 
 const Wrapper = styled.section`
   flex-grow: 1;

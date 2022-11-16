@@ -9,9 +9,6 @@ type fire = {
 type DataOfDate = {
     date: string
 } & fire
-type DataOfTag = {
-    tagName?: fire
-}
 type Record = {
     tag: number
     note: string
@@ -25,7 +22,7 @@ type Records = {
 const useData = () => {
     const {getRecordsData} = useRecords()
     const {findTagById} = useTags()
-    const [data, setData] = useState(getRecordsData(JSON.parse(localStorage.getItem('selectedDate')!)))
+    const [data] = useState(getRecordsData(JSON.parse(localStorage.getItem('selectedDate')!)))
     const getDataByDate = (): DataOfDate[] => {
         let dateOfData: DataOfDate[] = []
         data.forEach(d => {
@@ -38,35 +35,30 @@ const useData = () => {
         return dateOfData
     }
     const getDataByTag = () => {
-        const dataOfTag = new Map()
-        console.log('===');
-        console.log(data);
-        //TODO data再次挂载数据出错
-        data.forEach(item => {
-            item[1].forEach((d: Records) => {
+        let dataOfTag = new Map()
+        data.map(item => {
+            item[1].map((d: Records) => {
                 let tagName = findTagById(d.tag)
+                console.log(d.tag);
                 if (dataOfTag.has(tagName)) {
                     let data = dataOfTag.get(tagName)
-                    if (d.category === '-') {
-                        dataOfTag.set(tagName, {
-                            outcome: data.outcome + parseFloat(d.amount),
-                            income: data.income
-                        })
-                    } else {
-                        dataOfTag.set(tagName, {
-                            outcome: data.outcome,
-                            income: data.income + parseFloat(d.amount)
-                        })
-                    }
-                }else {
-                    dataOfTag.set(tagName,{
-                        outcome:0,
-                        income:0
-                    })
+                    let outcome = data.outcome
+                    let income = data.income
+                    d.category === '-' ?
+                        outcome += parseFloat(d.amount) :
+                        income += parseFloat(d.amount)
+                    dataOfTag.set(tagName, {outcome, income})
+                } else {
+                    let outcome = 0
+                    let income = 0
+                    d.category === '-' ?
+                        outcome = parseFloat(d.amount) :
+                        income = parseFloat(d.amount)
+                    dataOfTag.set(tagName, {outcome, income})
                 }
             })
         })
-        console.log(dataOfTag);
+        return dataOfTag
     }
     return {
         getDataByDate, getDataByTag
