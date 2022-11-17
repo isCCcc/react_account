@@ -30,7 +30,11 @@ const Charts: React.FC<BaseChartProps> = ({ options }) => {
         initChart();
     }, [options])
 
-    return <div ref={chartRef} style={{ height: "45%", width: "100%" ,background:'white'}} />
+    return <div ref={chartRef} style={{
+        height: "48%", width: "94%" ,background:'white',
+        margin:'0 3%',padding:'14px 0',
+        borderBottom:'1px solid #c7c7c7'
+    }} />
 };
 
 export {Charts};
