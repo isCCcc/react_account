@@ -4,12 +4,19 @@ import {Charts} from "view/statistics/Charts";
 import styled from "styled-components";
 import {useData} from "hooks/useData";
 import dayjs from "dayjs";
-import {Tips} from "../../components/Tips";
+import {Tips} from "components/Tips";
+import {CostList} from "view/statistics/CostList";
 
 const Wrapper = styled.section`
   flex-grow: 1;
   background: white;
 `
+const Empty = styled.div`
+  background: #ebebeb;
+  height: 100%;
+  color: #333;
+`
+
 type Props = {
     category: ('+' | '-'),
 }
@@ -17,11 +24,6 @@ type PieData = {
     value: number,
     name: string
 }
-const Empty = styled.div`
-  background: #ebebeb;
-  height: 100%;
-  color: #333;
-`
 const StatisticsContent: React.FC<Props> = (props) => {
     let [pieOptions, setPieOptions] = useState<EChartOption>({})
     let [barOptions, setBarOptions] = useState<EChartOption>({})
@@ -32,6 +34,8 @@ const StatisticsContent: React.FC<Props> = (props) => {
         barChartOptions()
         setIsEmpty(getDataByDate().length === 0)
     }, [props.category])
+
+    //饼图相关数据处理和options配置项
     const pieChartOptions = () => {
         const data = getPieData()
         let pieColor = props.category === '+' ? '#f2b52d' : '#2db970';
@@ -91,7 +95,7 @@ const StatisticsContent: React.FC<Props> = (props) => {
         data.sort((a, b) => a.value - b.value)
         return data
     }
-
+    //柱形图相关数据处理和options配置项
     const barChartOptions = () => {
         const data = getBarData()
         const key = data.map(d => dayjs(d.date).format('M-D'))
@@ -174,12 +178,15 @@ const StatisticsContent: React.FC<Props> = (props) => {
         }
         return array.reverse()
     }
+
+    // 根据当前数据记录是否为空展示不同界面
     const emptyDisplay = () => (<Wrapper><Empty><Tips/></Empty></Wrapper>)
     const normalDisplay = () => {
         return (
             <Wrapper>
                 <Charts options={pieOptions}/>
                 <Charts options={barOptions}/>
+                <CostList category={props.category}/>
             </Wrapper>
         )
     }

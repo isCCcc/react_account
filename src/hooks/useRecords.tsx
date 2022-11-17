@@ -34,6 +34,11 @@ const useRecords = () => {
         localStorage.setItem('records', JSON.stringify(r))
     }
 
+    const getDataSourceByMonth = () => {
+        const locDate = JSON.parse(localStorage.getItem('selectedDate')!)
+        const date = locDate.year + '-' + locDate.month
+        return records.filter(r => dayjs(date).isSame(r.createAt, 'year') && dayjs(date).isSame(r.createAt, 'month'))
+    }
     const getRecords = () => {
         let newRecords = new Map()
         records.forEach(item => {
@@ -88,6 +93,7 @@ const useRecords = () => {
         }
         return floatNumber(num.toString())
     }
-    return {addRecord, getRecords, getRecordsData, getAccount}
+
+    return {addRecord, getRecords, getRecordsData, getAccount, getDataSourceByMonth}
 }
 export {useRecords}

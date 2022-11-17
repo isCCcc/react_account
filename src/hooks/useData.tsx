@@ -20,9 +20,10 @@ type Records = {
     createAt: number
 } & Record
 const useData = () => {
-    const {getRecordsData} = useRecords()
+    const {getRecordsData, getDataSourceByMonth} = useRecords()
     const {findTagById} = useTags()
     const [data] = useState(getRecordsData(JSON.parse(localStorage.getItem('selectedDate')!)))
+    const [count, setCount] = useState<number>(10)
     const getDataByDate = (): DataOfDate[] => {
         let dateOfData: DataOfDate[] = []
         data.forEach(d => {
@@ -59,8 +60,17 @@ const useData = () => {
         })
         return dataOfTag
     }
+
+    //按支付类型分类，并显示前10条数据（10为动态）
+    const getCostList = (category: '-' | '+') => {
+        const dataSource = getDataSourceByMonth()
+        const categoryData = dataSource.filter(record => record.category === category)
+        categoryData.sort((a, b) => parseFloat(b.amount) - parseFloat(a.amount))
+        return dataSource.length <= 10 ? categoryData : categoryData.slice(0, count)
+    }
+
     return {
-        getDataByDate, getDataByTag
+        getDataByDate, getDataByTag, getCostList
     }
 }
 
