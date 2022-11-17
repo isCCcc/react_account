@@ -31,8 +31,8 @@ const Charts: React.FC<BaseChartProps> = ({ options }) => {
     }, [options])
 
     return <div ref={chartRef} style={{
-        height: "48%", width: "94%" ,background:'white',
-        margin:'0 3%',padding:'14px 0',
+        height: "400px", width: "94%" ,background:'white',
+        margin:' 0 10px 20px 10px',padding:'14px 0',
         borderBottom:'1px solid #c7c7c7'
     }} />
 };
