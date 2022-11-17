@@ -5,7 +5,6 @@ import {EChartOption} from "echarts";
 type BaseChartProps ={
     options: EChartOption
 };
-
 const Charts: React.FC<BaseChartProps> = ({ options }) => {
 
     const chartRef = useRef<HTMLInputElement>(null);
@@ -31,7 +30,7 @@ const Charts: React.FC<BaseChartProps> = ({ options }) => {
         initChart();
     }, [options])
 
-    return <div ref={chartRef} style={{ height: "100%", width: "100%" }} />
+    return <div ref={chartRef} style={{ height: "40%", width: "100%" ,background:'white'}} />
 };
 
 export {Charts};
