@@ -9,6 +9,8 @@ const Wrapper = styled.div`
   color: #c7c7c7;
   background: white;
   font-size: 16px;
+  display: flex;
+  flex-direction: column;
 
   > ol {
     padding-top: 10px;
@@ -18,6 +20,12 @@ const Wrapper = styled.div`
       width: 100%;
       display: flex;
     }
+  }
+
+  > .more {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
   }
 `
 const Index = styled.div`
@@ -47,6 +55,16 @@ const Content = styled.div`
   }
 
 `
+const Button = styled.button`
+  border: none;
+  background: transparent;
+  color: #2db970;
+  border-bottom: 1px solid #2db970;
+  font-size: 14px;
+  padding: 4px;
+  margin: 4px;
+  cursor: pointer;
+`
 type Props = {
     category: '-' | '+'
 }
@@ -61,12 +79,54 @@ type Records = {
     createAt: number
 } & Record
 const CostList: React.FC<Props> = (props) => {
-    const {getCostList} = useData()
+    const {getCostList, readMore, foldList} = useData()
     const {findTagById} = useTags()
     const [dataSource, setDataSource] = useState<Records[]>(getCostList(props.category))
+    const [count, setCount] = useState<number>(10)
     useEffect(() => {
         setDataSource(getCostList(props.category))
-    }, [props.category])
+        console.log(count);
+
+    }, [props.category, count])
+    const moreData = () => {
+        setCount(readMore())
+    }
+    const foldData = () => {
+        setCount(foldList())
+    }
+
+    const buttonDisplay = () => {
+        if (dataSource.length < count) {
+            return (
+                <div className="more">
+                    <Button onClick={() => {
+                        foldData()
+                    }}>折叠数据</Button>
+                </div>
+            )
+        } else {
+            if (count > 10) {
+                return (
+                    <div className="more">
+                        <Button onClick={() => {
+                            moreData()
+                        }}>查看更多</Button>
+                        <Button onClick={() => {
+                            foldData()
+                        }}>折叠数据</Button>
+                    </div>
+                )
+            } else {
+                return (
+                    <div className="more">
+                        <Button onClick={() => {
+                            moreData()
+                        }}>查看更多</Button>
+                    </div>
+                )
+            }
+        }
+    }
     return (
         <Wrapper>
             <div>金额排行榜</div>
@@ -85,6 +145,7 @@ const CostList: React.FC<Props> = (props) => {
                     </Content>
                 </li>
             ))}</ol>
+            {buttonDisplay()}
         </Wrapper>
     )
 }

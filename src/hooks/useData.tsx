@@ -68,9 +68,18 @@ const useData = () => {
         categoryData.sort((a, b) => parseFloat(b.amount) - parseFloat(a.amount))
         return dataSource.length <= 10 ? categoryData : categoryData.slice(0, count)
     }
+    const readMore = () => {
+        setCount(count + 10)
+        console.log(count);
+        return count
+    }
+    const foldList = () => {
+        setCount(10)
+        return count
+    }
 
     return {
-        getDataByDate, getDataByTag, getCostList
+        getDataByDate, getDataByTag, getCostList, readMore, foldList
     }
 }
 
