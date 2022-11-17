@@ -4,6 +4,7 @@ import {Charts} from "view/statistics/Charts";
 import styled from "styled-components";
 import {useData} from "hooks/useData";
 import dayjs from "dayjs";
+import {Tips} from "../../components/Tips";
 
 const Wrapper = styled.section`
   flex-grow: 1;
@@ -16,13 +17,20 @@ type PieData = {
     value: number,
     name: string
 }
+const Empty = styled.div`
+  background: #ebebeb;
+  height: 100%;
+  color: #333;
+`
 const StatisticsContent: React.FC<Props> = (props) => {
     let [pieOptions, setPieOptions] = useState<EChartOption>({})
     let [barOptions, setBarOptions] = useState<EChartOption>({})
+    const [isEmpty, setIsEmpty] = useState<boolean>(false)
     const {getDataByDate, getDataByTag} = useData()
     useEffect(() => {
         pieChartOptions()
         barChartOptions()
+        setIsEmpty(getDataByDate().length === 0)
     }, [props.category])
     const pieChartOptions = () => {
         const data = getPieData()
@@ -166,11 +174,15 @@ const StatisticsContent: React.FC<Props> = (props) => {
         }
         return array.reverse()
     }
-    return (
-        <Wrapper>
-            <Charts options={pieOptions}/>
-            <Charts options={barOptions}/>
-        </Wrapper>
-    )
+    const emptyDisplay = () => (<Wrapper><Empty><Tips/></Empty></Wrapper>)
+    const normalDisplay = () => {
+        return (
+            <Wrapper>
+                <Charts options={pieOptions}/>
+                <Charts options={barOptions}/>
+            </Wrapper>
+        )
+    }
+    return isEmpty ? emptyDisplay() : normalDisplay()
 }
 export {StatisticsContent}

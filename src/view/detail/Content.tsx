@@ -3,7 +3,7 @@ import {useRecords} from "hooks/useRecords";
 import styled from "styled-components";
 import Icon from "components/Icon";
 import {useTags} from "hooks/useTags";
-import {NavLink} from "react-router-dom";
+import {Tips} from "components/Tips";
 
 const Wrapper = styled.section`
   > ol {
@@ -30,11 +30,13 @@ const Wrapper = styled.section`
           border-radius: 9px;
           margin-right: 4px;
         }
+
         .out {
           fill: #e7f7f0;
           background: #28a665;
         }
-        .in{
+
+        .in {
           fill: #fff7ea;
           background: #f2b52d;
         }
@@ -95,29 +97,6 @@ const Wrapper = styled.section`
     }
   }
 `
-const Tips = styled.div`
-  margin-top: 40%;
-  font-size: 20px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-
-  > a {
-    display: flex;
-
-    > .icon {
-      width: 24px;
-      height: 24px;
-      fill: #2db970;
-    }
-
-    > span {
-      padding: 0 2px;
-      color: #2db970;
-      border-bottom: 1px solid #2db970;
-    }
-  }
-`
 
 type Record = {
     tag: number
@@ -172,16 +151,7 @@ const Content: React.FC<Props> = (props) => {
                 </ol>)
         )
     }
-    const noData = () => {
-        return (
-            <Tips>本月暂无数据，
-                <NavLink to="/money">
-                    <span>去记一笔</span>
-                    <Icon name="account"/>
-                </NavLink>
-            </Tips>
-        )
-    }
+    const noData = () => <Tips/>
     return (
         <Wrapper>{getRecordsData(props.selectDate).length === 0 ? noData() : hasData()}</Wrapper>
     )
