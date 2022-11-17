@@ -59,11 +59,14 @@ const Button = styled.button`
   border: none;
   background: transparent;
   color: #2db970;
-  border-bottom: 1px solid #2db970;
   font-size: 14px;
-  padding: 4px;
-  margin: 4px;
+  padding: 20px 10px;
+  margin: 20px 0 0 0;
   cursor: pointer;
+
+  > span {
+    border-bottom: 1px solid #2db970;
+  }
 `
 type Props = {
     category: '-' | '+'
@@ -94,14 +97,16 @@ const CostList: React.FC<Props> = (props) => {
     const foldData = () => {
         setCount(foldList())
     }
-
+    //TODO 按钮点击有问题
     const buttonDisplay = () => {
         if (dataSource.length < count) {
             return (
                 <div className="more">
                     <Button onClick={() => {
                         foldData()
-                    }}>折叠数据</Button>
+                    }}>
+                        <span>折叠数据</span>
+                    </Button>
                 </div>
             )
         } else {
@@ -110,10 +115,14 @@ const CostList: React.FC<Props> = (props) => {
                     <div className="more">
                         <Button onClick={() => {
                             moreData()
-                        }}>查看更多</Button>
+                        }}>
+                            <span>查看更多</span>
+                        </Button>
                         <Button onClick={() => {
                             foldData()
-                        }}>折叠数据</Button>
+                        }}>
+                            <span>折叠数据</span>
+                        </Button>
                     </div>
                 )
             } else {
@@ -121,7 +130,9 @@ const CostList: React.FC<Props> = (props) => {
                     <div className="more">
                         <Button onClick={() => {
                             moreData()
-                        }}>查看更多</Button>
+                        }}>
+                            <span>查看更多</span>
+                        </Button>
                     </div>
                 )
             }
