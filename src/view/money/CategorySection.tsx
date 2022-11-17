@@ -4,6 +4,9 @@ import React from "react";
 const Wrapper = styled.section`
   outline: 1px solid #f5f5f5;
   background: white;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 
   > ol {
     > li {

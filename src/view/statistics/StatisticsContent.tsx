@@ -8,9 +8,7 @@ import dayjs from "dayjs";
 const Wrapper = styled.section`
   flex-grow: 1;
   background: white;
-
 `
-
 type Props = {
     category: ('+' | '-'),
 }
