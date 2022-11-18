@@ -66,11 +66,13 @@ const useData = () => {
         const dataSource = getDataSourceByMonth()
         const categoryData = dataSource.filter(record => record.category === category)
         categoryData.sort((a, b) => parseFloat(b.amount) - parseFloat(a.amount))
-        return dataSource.length <= 10 ? categoryData : categoryData.slice(0, count)
+        return {
+            data: dataSource.length <= 10 ? categoryData : categoryData.slice(0, count),
+            total: categoryData.length
+        }
     }
     const readMore = () => {
         setCount(count + 10)
-        console.log(count);
         return count
     }
     const foldList = () => {

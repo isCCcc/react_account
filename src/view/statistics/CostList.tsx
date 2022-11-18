@@ -25,7 +25,24 @@ const Wrapper = styled.div`
   > .more {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    color: #2db970;
+    font-size: 14px;
+    padding: 20px 10px;
+    margin: 10px 0 0 0;
+
+    > span {
+      cursor: pointer;
+      padding: 10px 4px 0 4px;
+      margin: 0 10px;
+      border-bottom: 1px solid #2db970;
+    }
+
+    > .no-more {
+      color: #c7c7c7;
+      font-size: 12px;
+      cursor: default;
+      border: none;
+    }
   }
 `
 const Index = styled.div`
@@ -55,19 +72,6 @@ const Content = styled.div`
   }
 
 `
-const Button = styled.button`
-  border: none;
-  background: transparent;
-  color: #2db970;
-  font-size: 14px;
-  padding: 20px 10px;
-  margin: 20px 0 0 0;
-  cursor: pointer;
-
-  > span {
-    border-bottom: 1px solid #2db970;
-  }
-`
 type Props = {
     category: '-' | '+'
 }
@@ -84,12 +88,10 @@ type Records = {
 const CostList: React.FC<Props> = (props) => {
     const {getCostList, readMore, foldList} = useData()
     const {findTagById} = useTags()
-    const [dataSource, setDataSource] = useState<Records[]>(getCostList(props.category))
+    const [dataSource, setDataSource] = useState<{ data: Records[]; total: number; }>(getCostList(props.category))
     const [count, setCount] = useState<number>(10)
     useEffect(() => {
         setDataSource(getCostList(props.category))
-        console.log(count);
-
     }, [props.category, count])
     const moreData = () => {
         setCount(readMore())
@@ -97,51 +99,42 @@ const CostList: React.FC<Props> = (props) => {
     const foldData = () => {
         setCount(foldList())
     }
-    //TODO 按钮点击有问题
+
+    //查看更多数据功能模块的展示处理
     const buttonDisplay = () => {
-        if (dataSource.length < count) {
+        let nowData = dataSource.data.length
+        let totalData = dataSource.total
+        if (nowData < 10 || totalData === 10) {
             return (
                 <div className="more">
-                    <Button onClick={() => {
-                        foldData()
-                    }}>
-                        <span>折叠数据</span>
-                    </Button>
+                    <div className="no-more">没有了...</div>
                 </div>
             )
-        } else {
-            if (count > 10) {
-                return (
-                    <div className="more">
-                        <Button onClick={() => {
-                            moreData()
-                        }}>
-                            <span>查看更多</span>
-                        </Button>
-                        <Button onClick={() => {
-                            foldData()
-                        }}>
-                            <span>折叠数据</span>
-                        </Button>
-                    </div>
-                )
-            } else {
-                return (
-                    <div className="more">
-                        <Button onClick={() => {
-                            moreData()
-                        }}>
-                            <span>查看更多</span>
-                        </Button>
-                    </div>
-                )
-            }
+        } else if (nowData < totalData) {
+            return (
+                <div className="more">
+                    <span onClick={() => {
+                        moreData()
+                    }}>查看更多</span>
+                    <span onClick={() => {
+                        foldData()
+                    }}>折叠数据</span>
+                </div>
+            )
+        } else if (nowData === totalData) {
+            return (
+                <div className="more">
+                    <span onClick={() => {
+                        foldData()
+                    }}>折叠数据</span>
+                </div>
+            )
         }
     }
     return (
         <Wrapper>
             <div>金额排行榜</div>
-            <ol>{dataSource.map((record, index) => (
+            <ol>{dataSource.data.map((record, index) => (
                 < li key={record.r_id}>
                     < Index> {index + 1}</Index>
                     <Content>
