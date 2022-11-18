@@ -111,6 +111,15 @@ const CostList: React.FC<Props> = (props) => {
                 </div>
             )
         } else if (nowData < totalData) {
+            if (nowData === 10) {
+                return (
+                    <div className="more">
+                    <span onClick={() => {
+                        moreData()
+                    }}>查看更多</span>
+                    </div>
+                )
+            }
             return (
                 <div className="more">
                     <span onClick={() => {
