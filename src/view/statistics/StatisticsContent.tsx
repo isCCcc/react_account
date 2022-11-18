@@ -8,7 +8,6 @@ import {Tips} from "components/Tips";
 import {CostList} from "view/statistics/CostList";
 
 const Wrapper = styled.section`
-  flex-grow: 1;
   background: white;
 `
 const Empty = styled.div`

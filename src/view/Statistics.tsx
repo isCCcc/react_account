@@ -1,12 +1,11 @@
 import Layout from "components/Layout";
 import React, {useState} from "react";
-import {StatisticsContent} from "./statistics/StatisticsContent";
-import {CategorySection} from "./money/CategorySection";
+import {StatisticsContent} from "view/statistics/StatisticsContent";
+import {CategorySection} from "view/money/CategorySection";
 import styled from "styled-components";
 
 const Wrapper = styled.section`
   display: flex;
-  height: 100%;
   flex-direction: column;
   color: white;
 
