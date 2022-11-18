@@ -22,10 +22,17 @@ const Wrapper = styled.div`
 `
 const Main = styled.div`
   flex-grow: 1;
-  overflow: auto;
   background: #ebebeb;
+  //隐藏滚动条，但可滚动页面
+  overflow: auto;
+  ::-webkit-scrollbar {
+    width: 0 !important
+  }
+  /* IE 10+ */
+  -ms-overflow-style: none;
+  /* Firefox */
+  overflow: -moz-scrollbars-none;
 `
-
 const Layout = (props: any) => {
     return (
         <AppWrapper>
