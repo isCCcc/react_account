@@ -1,10 +1,11 @@
 import Layout from "components/Layout";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {CategorySection} from "view/money/CategorySection";
 import {NoteSection} from "view/money/NoteSection";
 import {NumberPadSection} from "view/money/NumberPadSection";
 import {TagsSection} from "view/money/TagsSection";
+import dayjs from "dayjs";
 
 const MyLayout = styled(Layout)`
   display: flex;
@@ -34,6 +35,17 @@ function Money() {
     const onInit = (obj: Selected) => {
         setSelected({...obj})
     }
+
+    useEffect(() => {
+        if (localStorage.getItem('selectedDate') === null) {
+            const date = {
+                year: dayjs().get("year"),
+                month: dayjs().get("month")
+            }
+            localStorage.setItem('selectedDate', JSON.stringify(date))
+        }
+    }, [])
+
     return (
         <MyLayout>
             <TagsSection selected={selected.tag}
